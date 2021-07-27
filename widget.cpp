@@ -1,7 +1,7 @@
 ﻿#include "widget.h"
 #include "ui_widget.h"
 
-#include "subject.h"
+#include "msgmanager.h"
 
 #include <QDebug>
 

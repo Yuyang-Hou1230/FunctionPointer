@@ -1,4 +1,4 @@
-﻿#include "subject.h"
+﻿#include "msgmanager.h"
 
 #include <QDebug>
 

@@ -1,5 +1,5 @@
-﻿#ifndef SUBJECT_H
-#define SUBJECT_H
+#ifndef MSGMANAGER_H
+#define MSGMANAGER_H
 
 #include "observer.h"
 
@@ -99,4 +99,4 @@ private:
      QMutex mLock;
 };
 
-#endif // SUBJECT_H
+#endif // MSGMANAGER_H
