@@ -11,10 +11,10 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    StudentInfo info1(18, "郑刚1", "Qt工程师");
-    StudentInfo info2(19, "郑刚2", "Qt工程师");
-    StudentInfo info3(20, "郑刚3", "Qt工程师");
-    StudentInfo info4(21, "郑刚4", "Qt工程师");
+    StudentInfo info1(18, "aaa1", "Qt工程师");
+    StudentInfo info2(19, "aaa2", "Qt工程师");
+    StudentInfo info3(20, "aaa3", "Qt工程师");
+    StudentInfo info4(21, "aaa4", "Qt工程师");
 //    getInfo(getdata(info));
 
     MessageManager msgManager;
