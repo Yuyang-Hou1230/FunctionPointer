@@ -1,8 +1,13 @@
-#include "observer.h"
+﻿#include "observer.h"
 
 #include <QDebug>
 
 Observer::Observer()
+{
+
+}
+
+Observer::~Observer()
 {
 
 }

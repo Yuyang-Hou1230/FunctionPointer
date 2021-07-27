@@ -1,4 +1,4 @@
-#include "widget.h"
+﻿#include "widget.h"
 #include "ui_widget.h"
 
 #include "subject.h"
@@ -11,13 +11,22 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    StudentInfo info(18, "郑刚", "Qt工程师");
+    StudentInfo info1(18, "郑刚1", "Qt工程师");
+    StudentInfo info2(19, "郑刚2", "Qt工程师");
+    StudentInfo info3(20, "郑刚3", "Qt工程师");
+    StudentInfo info4(21, "郑刚4", "Qt工程师");
 //    getInfo(getdata(info));
 
-    Subject subject;
-    subject.Register(&info,&Observer::handleMessage);
+    MessageManager msgManager;
+    msgManager.Register(MessageManager::INSIDE_1, &info1);
+    msgManager.Register(MessageManager::INSIDE_1, &info2);
+    msgManager.Register(MessageManager::INSIDE_1, &info3);
+    msgManager.Register(MessageManager::INSIDE_1, &info4);
 
-    subject.handleMessage(getdata(info));
+    msgManager.PutInsideMessage(MessageManager::INSIDE_1, getdata(info1));
+    msgManager.PutInsideMessage(MessageManager::INSIDE_1, getdata(info2));
+    msgManager.PutInsideMessage(MessageManager::INSIDE_1, getdata(info3));
+    msgManager.PutInsideMessage(MessageManager::INSIDE_1, getdata(info4));
 }
 
 Widget::~Widget()
