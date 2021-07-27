@@ -1,2 +1,2 @@
-# FunctionPointer
-函数指针及虚函数的结合使用
+# MessageManager
+使用QVariant作为数据类型完成一个消息管理对象
