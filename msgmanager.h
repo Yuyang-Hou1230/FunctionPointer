@@ -1,11 +1,11 @@
-#ifndef MSGMANAGER_H
+﻿#ifndef MSGMANAGER_H
 #define MSGMANAGER_H
-
-#include "observer.h"
 
 #include <QQueue>
 #include <QVariant>
 #include <QMutex>
+
+#define MSG_MANAGER MessageManager::GetInstance()
 
 /*1、及时通知
  *
@@ -14,13 +14,37 @@
  *
 */
 
+// 观察者
+class Observer
+{
+public:
+    Observer(){
 
+    };
+
+    ~Observer(){
+
+    };
+
+public:
+    // 消息处理虚函数
+    virtual void handleMessage(QVariant data) = 0;
+};
+
+
+/*-----------------------------------------------------------------
+* @类名           MessageManager
+* @说明           消息管理类
+* @作者           hyy
+* @日期           2021/07/28
+------------------------------------------------------------------*/
 class MessageManager
 {
 public:
-    MessageManager(){
-
-    }; 
+    static MessageManager *GetInstance(){
+        static MessageManager m;
+        return &m;
+    }
 
 public:
 
@@ -56,6 +80,10 @@ public:
     void PutInsideMessage(MsgTypeInside msgType, QVariant data);;
 
 private:
+    //构造函数私有化
+    MessageManager(){};
+
+
     void registerMsg(int msgType, Observer *obj);;
 
     //消息处理函数
@@ -88,7 +116,6 @@ private:
     };
 
 private:
-//     QMap<Observer *, void (Observer::*)(QVariant)> mObeservers;
      QMap<int, QList<Observer *>> mObeservers;
      QQueue<Message> mMsgList;
 

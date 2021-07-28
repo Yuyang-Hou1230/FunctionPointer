@@ -1,13 +1,11 @@
-#ifndef WIDGET_H
+﻿#ifndef WIDGET_H
 #define WIDGET_H
 
-#include "observer.h"
+#include "msgmanager.h"
                                      \
 #include <QWidget>
 #include <QVariant>
 #include <QDebug>
-
-
 
 
 QT_BEGIN_NAMESPACE
@@ -15,7 +13,7 @@ namespace Ui { class Widget; }
 QT_END_NAMESPACE
 
 
-struct StudentInfo : public Observer{
+struct StudentInfo{
     int age;
     QString name;
     QString description;
@@ -29,17 +27,27 @@ struct StudentInfo : public Observer{
         this->name = name;
         this->description = desc;
     }
-
-    void handleMessage(QVariant data) override{
-        if(data.canConvert<StudentInfo>()){
-            StudentInfo info = data.value<StudentInfo>();
-            qDebug() << data.type();
-            qDebug() << info.age << info.name << info.description;
-        }
-    };
 };
 
 Q_DECLARE_METATYPE(StudentInfo)
+
+struct TeacherInfo{
+    int age;
+    QString name;
+    QString description;
+
+    TeacherInfo(){
+
+    };
+
+    TeacherInfo(int age, QString name, QString desc){
+        this->age = age;
+        this->name = name;
+        this->description = desc;
+    }
+};
+
+Q_DECLARE_METATYPE(TeacherInfo)
 
 
 
@@ -51,7 +59,7 @@ QVariant getdata(T t){
     return data;
 }
 
-class Widget : public QWidget
+class Widget : public QWidget, public Observer
 {
     Q_OBJECT
 
@@ -59,8 +67,9 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-private:
-    void getInfo(QVariant data);
+    void handleMessage(QVariant data) override;
+
+
 
 private:
     Ui::Widget *ui;

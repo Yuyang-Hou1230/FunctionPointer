@@ -2,12 +2,6 @@
 
 #include <QDebug>
 
-//Subject::Subject()
-//{
-
-//}
-
-
 void MessageManager::Register(MessageManager::MsgTypeOutside msgType, Observer *obj){
     registerMsg(msgType, obj);
 }

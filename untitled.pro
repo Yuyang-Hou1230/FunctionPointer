@@ -18,12 +18,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     msgmanager.cpp \
-    observer.cpp \
     widget.cpp
 
 HEADERS += \
     msgmanager.h \
-    observer.h \
     widget.h
 
 FORMS += \
