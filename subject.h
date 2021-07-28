@@ -87,9 +87,6 @@ private:
         };
     };
 
-
-
-
 private:
 //     QMap<Observer *, void (Observer::*)(QVariant)> mObeservers;
      QMap<int, QList<Observer *>> mObeservers;
