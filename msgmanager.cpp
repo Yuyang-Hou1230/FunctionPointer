@@ -18,20 +18,8 @@ void MessageManager::PutOutsideMessage(MsgTypeOutside msgType, QVariant data){
 
     // 2、 直接分发至消息注册对象进行处理（此处需要加锁）
 
-    // 首先判断该消息是否被注册，否则打印警告信息
-    mLock.lock();
-    if(mObeservers.contains(msgType)){
-        QList<Observer *> observers = mObeservers[msgType];
-        if(!observers.isEmpty()){        // 判空
-            for(auto p : observers){
-                p->handleMessage(data);
-            }
-        }
-    }
-    else{
-        qWarning() << QString("This msg : %1 , is not registered!").arg(msgType);
-    }
-    mLock.unlock();
+    emit MessageSignal(msgType, data);
+
 
 }
 
@@ -42,20 +30,8 @@ void MessageManager::PutInsideMessage(MsgTypeInside msgType, QVariant data){
 
     // 2、 直接分发至消息注册对象进行处理（此处需要加锁）
 
-    // 首先判断该消息是否被注册，否则打印警告信息
-    mLock.lock();
-    if(mObeservers.contains(msgType)){
-        QList<Observer *> observers = mObeservers[msgType];
-        if(!observers.isEmpty()){        // 判空
-            for(auto p : observers){
-                p->handleMessage(data);
-            }
-        }
-    }
-    else{
-        qWarning() << QString("This msg : %1 , is not registered!").arg(msgType);
-    }
-    mLock.unlock();
+    emit MessageSignal(msgType, data);
+
 }
 
 void MessageManager::registerMsg(int msgType, Observer *obj){
@@ -74,7 +50,20 @@ void MessageManager::registerMsg(int msgType, Observer *obj){
     }
 }
 
-void MessageManager::handleMessage()
+void MessageManager::handleMessage(int msgType, QVariant data)
 {
-
+    // 首先判断该消息是否被注册，否则打印警告信息
+    mLock.lock();
+    if(mObeservers.contains(msgType)){
+        QList<Observer *> observers = mObeservers[msgType];
+        if(!observers.isEmpty()){        // 判空
+            for(auto p : observers){
+                p->handleMessage(data);
+            }
+        }
+    }
+    else{
+        qWarning() << QString("This msg : %1 , is not registered!").arg(msgType);
+    }
+    mLock.unlock();
 }

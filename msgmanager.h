@@ -4,6 +4,7 @@
 #include <QQueue>
 #include <QVariant>
 #include <QMutex>
+#include <QObject>
 
 #define MSG_MANAGER MessageManager::GetInstance()
 
@@ -38,8 +39,9 @@ public:
 * @作者           hyy
 * @日期           2021/07/28
 ------------------------------------------------------------------*/
-class MessageManager
+class MessageManager : public QObject
 {
+    Q_OBJECT
 public:
     static MessageManager *GetInstance(){
         static MessageManager m;
@@ -74,20 +76,25 @@ public:
     void Register(MsgTypeInside msgType, Observer *obj);
 
     // 将外部消息放入队列中
-    void PutOutsideMessage(MsgTypeOutside msgType, QVariant data);;
+    void PutOutsideMessage(MsgTypeOutside msgType, QVariant data);
 
     // 将内部消息放入队列中
-    void PutInsideMessage(MsgTypeInside msgType, QVariant data);;
+    void PutInsideMessage(MsgTypeInside msgType, QVariant data);
+
+signals:
+    void MessageSignal(int msgType, QVariant data);
 
 private:
     //构造函数私有化
-    MessageManager(){};
+    MessageManager(){
+        connect(this, &MessageManager::MessageSignal, this, &MessageManager::handleMessage);
+    };
 
 
     void registerMsg(int msgType, Observer *obj);;
 
     //消息处理函数
-    void handleMessage();
+    void handleMessage(int msgType, QVariant data);
 
 
 private:
